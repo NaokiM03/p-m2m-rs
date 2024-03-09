@@ -1,4 +1,4 @@
-use core::slice::Iter;
+use core::slice::{Iter, IterMut};
 
 /// A many-to-many implemented as a `Vec<(L, R)>`.
 ///
@@ -192,6 +192,34 @@ impl<L, R> M2M<L, R> {
     /// ```
     pub fn iter(&self) -> Iter<(L, R)> {
         self.0.iter()
+    }
+
+    /// Returns a mutable iterator.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use p_m2m::M2M;
+    ///
+    /// let mut m2m = M2M::new();
+    ///
+    /// m2m.insert(1, "a");
+    /// m2m.insert(1, "b");
+    /// m2m.insert(2, "a");
+    /// m2m.insert(2, "b");
+    ///
+    /// m2m.iter_mut().for_each(|(l, r)| *l += 2);
+    ///
+    /// let mut iter = m2m.iter();
+    ///
+    /// assert_eq!(iter.next(), Some(&(3, "a")));
+    /// assert_eq!(iter.next(), Some(&(3, "b")));
+    /// assert_eq!(iter.next(), Some(&(4, "a")));
+    /// assert_eq!(iter.next(), Some(&(4, "b")));
+    /// assert_eq!(iter.next(), None);
+    /// ```
+    pub fn iter_mut(&mut self) -> IterMut<(L, R)> {
+        self.0.iter_mut()
     }
 }
 

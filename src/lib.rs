@@ -1,3 +1,5 @@
+use core::slice::Iter;
+
 /// A many-to-many implemented as a `Vec<(L, R)>`.
 ///
 /// M2M is just a wrapper around a Vec.
@@ -164,5 +166,31 @@ impl<L, R> M2M<L, R> {
         R: PartialEq,
     {
         self.0.iter().any(|(l, r)| l == left && r == right)
+    }
+
+    /// Returns an iterator.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use p_m2m::M2M;
+    ///
+    /// let mut m2m = M2M::new();
+    ///
+    /// m2m.insert(1, "a");
+    /// m2m.insert(1, "b");
+    /// m2m.insert(2, "a");
+    /// m2m.insert(2, "b");
+    ///
+    /// let mut iter = m2m.iter();
+    ///
+    /// assert_eq!(iter.next(), Some(&(1, "a")));
+    /// assert_eq!(iter.next(), Some(&(1, "b")));
+    /// assert_eq!(iter.next(), Some(&(2, "a")));
+    /// assert_eq!(iter.next(), Some(&(2, "b")));
+    /// assert_eq!(iter.next(), None);
+    /// ```
+    pub fn iter(&self) -> Iter<(L, R)> {
+        self.0.iter()
     }
 }

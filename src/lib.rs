@@ -17,7 +17,7 @@ impl<L, R> M2M<L, R> {
         Default::default()
     }
 
-    /// Insert a left-right pair into the m2m.
+    /// Inserts a left-right pair into the m2m.
     ///
     /// If the m2m did not previously contain this value, `true` is returned.
     ///
@@ -52,7 +52,7 @@ impl<L, R> M2M<L, R> {
         }
     }
 
-    /// Clear the m2m, removing all left-right pairs.
+    /// Clears the m2m, removing all left-right pairs.
     ///
     /// # Examples
     ///

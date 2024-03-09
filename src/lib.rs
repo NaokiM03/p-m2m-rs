@@ -64,7 +64,9 @@ impl<L, R> M2M<L, R> {
     /// assert!(m2m.insert(1, "a"));
     /// assert!(m2m.insert(1, "b"));
     ///
+    /// assert!(!m2m.is_empty());
     /// m2m.clear();
+    /// assert!(m2m.is_empty());
     /// ```
     pub fn clear(&mut self) {
         self.0.clear();

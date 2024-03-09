@@ -106,7 +106,7 @@ impl<L, R> M2M<L, R> {
         self.0.len()
     }
 
-    /// Removes some pairs from the m2m, returning the right values paird with the left if the left was previously in the m2m.
+    /// Removes some pairs from the m2m, returning the right values corresponding to the left if the left was previously in the m2m.
     ///
     /// # Examples
     ///

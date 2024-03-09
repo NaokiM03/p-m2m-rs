@@ -69,4 +69,20 @@ impl<L, R> M2M<L, R> {
     pub fn clear(&mut self) {
         self.0.clear();
     }
+
+    /// Returns `true` if the m2m contains no pairs.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use p_m2m::M2M;
+    ///
+    /// let mut m2m = M2M::new();
+    /// assert!(m2m.is_empty());
+    /// m2m.insert(1, "a");
+    /// assert!(!m2m.is_empty());
+    /// ```
+    pub fn is_empty(&self) -> bool {
+        self.0.is_empty()
+    }
 }

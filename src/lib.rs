@@ -51,4 +51,22 @@ impl<L, R> M2M<L, R> {
             true
         }
     }
+
+    /// Clear the m2m, removing all left-right pairs.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use p_m2m::M2M;
+    ///
+    /// let mut m2m = M2M::new();
+    ///
+    /// assert!(m2m.insert(1, "a"));
+    /// assert!(m2m.insert(1, "b"));
+    ///
+    /// m2m.clear();
+    /// ```
+    pub fn clear(&mut self) {
+        self.0.clear();
+    }
 }

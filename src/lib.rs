@@ -103,4 +103,44 @@ impl<L, R> M2M<L, R> {
     pub fn len(&self) -> usize {
         self.0.len()
     }
+
+    /// Removes some pairs from the m2m, returning the right values paird with the left if the left was previously in the m2m.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use p_m2m::M2M;
+    ///
+    /// let mut m2m = M2M::new();
+    /// assert!(m2m.is_empty());
+    ///
+    /// m2m.insert(1, "a");
+    ///
+    /// assert_eq!(m2m.remove(&1), Some(vec!["a"]));
+    /// assert_eq!(m2m.remove(&1), None);
+    ///
+    /// assert!(m2m.is_empty());
+    /// ```
+    pub fn remove(&mut self, left: &L) -> Option<Vec<R>>
+    where
+        L: PartialEq,
+    {
+        let mut rights = Vec::new();
+
+        let mut i = 0;
+        while i < self.0.len() {
+            if &self.0[i].0 == left {
+                let lr = self.0.remove(i);
+                rights.push(lr.1);
+            } else {
+                i += 1;
+            }
+        }
+
+        if rights.is_empty() {
+            None
+        } else {
+            Some(rights)
+        }
+    }
 }

@@ -265,4 +265,48 @@ impl<L, R> M2M<L, R> {
             Some(lefts)
         }
     }
+
+    /// Returns `true` if the m2m contains the specified left value.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use p_m2m::M2M;
+    ///
+    /// let mut m2m = M2M::new();
+    ///
+    /// m2m.insert(1, "a");
+    /// m2m.insert(1, "b");
+    ///
+    /// assert!(m2m.contains_left(&1));
+    /// assert!(!m2m.contains_left(&3));
+    /// ```
+    pub fn contains_left(&self, left: &L) -> bool
+    where
+        L: PartialEq,
+    {
+        self.0.iter().any(|(l, _)| l == left)
+    }
+
+    /// Returns `true` if the m2m contains the specified right value.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use p_m2m::M2M;
+    ///
+    /// let mut m2m = M2M::new();
+    ///
+    /// m2m.insert(1, "a");
+    /// m2m.insert(1, "b");
+    ///
+    /// assert!(m2m.contains_right(&"a"));
+    /// assert!(!m2m.contains_right(&"c"));
+    /// ```
+    pub fn contains_right(&self, right: &R) -> bool
+    where
+        R: PartialEq,
+    {
+        self.0.iter().any(|(_, r)| r == right)
+    }
 }

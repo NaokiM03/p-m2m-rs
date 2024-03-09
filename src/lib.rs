@@ -194,3 +194,75 @@ impl<L, R> M2M<L, R> {
         self.0.iter()
     }
 }
+
+impl<L, R> M2M<L, R> {
+    /// Returns a reference to the right values corresponding to the left.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use p_m2m::M2M;
+    ///
+    /// let mut m2m = M2M::new();
+    ///
+    /// m2m.insert(1, "a");
+    /// m2m.insert(1, "b");
+    /// m2m.insert(2, "c");
+    /// m2m.insert(2, "d");
+    ///
+    /// let rights = m2m.get_rights(&1);
+    /// assert_eq!(rights, Some(vec![&"a", &"b"]));
+    /// ```
+    pub fn get_rights(&self, left: &L) -> Option<Vec<&R>>
+    where
+        L: PartialEq,
+    {
+        let rights: Vec<&R> = self
+            .0
+            .iter()
+            .filter(|(l, _)| l == left)
+            .map(|(_, r)| r)
+            .collect();
+
+        if rights.is_empty() {
+            None
+        } else {
+            Some(rights)
+        }
+    }
+
+    /// Returns a reference to the left values corresponding to the right.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use p_m2m::M2M;
+    ///
+    /// let mut m2m = M2M::new();
+    ///
+    /// m2m.insert(1, "a");
+    /// m2m.insert(2, "b");
+    /// m2m.insert(3, "a");
+    /// m2m.insert(4, "b");
+    ///
+    /// let lefts = m2m.get_lefts(&"a");
+    /// assert_eq!(lefts, Some(vec![&1, &3]));
+    /// ```
+    pub fn get_lefts(&self, right: &R) -> Option<Vec<&L>>
+    where
+        R: PartialEq,
+    {
+        let lefts: Vec<&L> = self
+            .0
+            .iter()
+            .filter(|(_, r)| r == right)
+            .map(|(l, _)| l)
+            .collect();
+
+        if lefts.is_empty() {
+            None
+        } else {
+            Some(lefts)
+        }
+    }
+}

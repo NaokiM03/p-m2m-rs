@@ -13,6 +13,14 @@ impl<L, R> Default for M2M<L, R> {
     }
 }
 
+impl<L, R> FromIterator<(L, R)> for M2M<L, R> {
+    #[inline]
+    fn from_iter<T: IntoIterator<Item = (L, R)>>(iter: T) -> Self {
+        let v = iter.into_iter().collect();
+        M2M(v)
+    }
+}
+
 impl<L, R> M2M<L, R> {
     /// Creates an empty M2M
     pub fn new() -> M2M<L, R> {

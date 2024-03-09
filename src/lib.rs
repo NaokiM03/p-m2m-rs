@@ -143,4 +143,26 @@ impl<L, R> M2M<L, R> {
             Some(rights)
         }
     }
+
+    /// Returns `true` if the m2m contains the specified left-right pair.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use p_m2m::M2M;
+    ///
+    /// let mut m2m = M2M::new();
+    ///
+    /// m2m.insert(1, "a");
+    ///
+    /// assert!(m2m.contains(&1, &"a"));
+    /// assert!(!m2m.contains(&1, &"b"));
+    /// ```
+    pub fn contains(&self, left: &L, right: &R) -> bool
+    where
+        L: PartialEq,
+        R: PartialEq,
+    {
+        self.0.iter().any(|(l, r)| l == left && r == right)
+    }
 }

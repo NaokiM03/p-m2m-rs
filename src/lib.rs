@@ -27,6 +27,26 @@ where
     }
 }
 
+impl<L, R, const N: usize> From<[(L, R); N]> for M2M<L, R>
+where
+    L: Ord,
+    R: Ord,
+{
+    /// Converts to this type from the input type.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use p_m2m::M2M;
+    ///
+    /// let m2m = M2M::from([(1, "a"), (1, "b"), (2, "a"), (2, "b")]);
+    /// ```
+
+    fn from(value: [(L, R); N]) -> Self {
+        M2M::from_iter(value)
+    }
+}
+
 impl<L, R> M2M<L, R> {
     /// Creates an empty M2M
     pub fn new() -> M2M<L, R> {

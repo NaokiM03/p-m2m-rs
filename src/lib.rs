@@ -55,9 +55,9 @@ impl<L, R> M2M<L, R> {
 
     /// Inserts a left-right pair into the m2m.
     ///
-    /// If the m2m did not previously contain this value, `true` is returned.
+    /// If the m2m did not previously contain this pair, `true` is returned.
     ///
-    /// If the m2m already contained this value, `false` is returned.
+    /// If the m2m already contained this pair, `false` is returned.
     ///
     /// # Examples
     ///

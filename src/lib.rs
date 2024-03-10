@@ -95,10 +95,7 @@ impl<L, R> M2M<L, R> {
     /// ```
     /// use p_m2m::M2M;
     ///
-    /// let mut m2m = M2M::new();
-    ///
-    /// assert!(m2m.insert(1, "a"));
-    /// assert!(m2m.insert(1, "b"));
+    /// let mut m2m = M2M::from([(1, "a"), (1, "b")]);
     ///
     /// assert!(!m2m.is_empty());
     /// m2m.clear();
@@ -116,6 +113,7 @@ impl<L, R> M2M<L, R> {
     /// use p_m2m::M2M;
     ///
     /// let mut m2m = M2M::new();
+    ///
     /// assert!(m2m.is_empty());
     /// m2m.insert(1, "a");
     /// assert!(!m2m.is_empty());
@@ -132,6 +130,7 @@ impl<L, R> M2M<L, R> {
     /// use p_m2m::M2M;
     ///
     /// let mut m2m = M2M::new();
+    ///
     /// assert_eq!(m2m.len(), 0);
     /// m2m.insert(1, "a");
     /// assert_eq!(m2m.len(), 1);
@@ -140,17 +139,15 @@ impl<L, R> M2M<L, R> {
         self.0.len()
     }
 
-    /// Removes some pairs from the m2m, returning the right values corresponding to the left if the left was previously in the m2m.
+    /// Removes some pairs from the m2m,
+    /// returning the right values corresponding to the left if the left was previously in the m2m.
     ///
     /// # Examples
     ///
     /// ```
     /// use p_m2m::M2M;
     ///
-    /// let mut m2m = M2M::new();
-    /// assert!(m2m.is_empty());
-    ///
-    /// m2m.insert(1, "a");
+    /// let mut m2m = M2M::from([(1, "a")]);
     ///
     /// assert_eq!(m2m.remove(&1), Some(vec!["a"]));
     /// assert_eq!(m2m.remove(&1), None);
@@ -187,9 +184,7 @@ impl<L, R> M2M<L, R> {
     /// ```
     /// use p_m2m::M2M;
     ///
-    /// let mut m2m = M2M::new();
-    ///
-    /// m2m.insert(1, "a");
+    /// let mut m2m = M2M::from([(1, "a")]);
     ///
     /// assert!(m2m.contains(&1, &"a"));
     /// assert!(!m2m.contains(&1, &"b"));
@@ -209,12 +204,7 @@ impl<L, R> M2M<L, R> {
     /// ```
     /// use p_m2m::M2M;
     ///
-    /// let mut m2m = M2M::new();
-    ///
-    /// m2m.insert(1, "a");
-    /// m2m.insert(1, "b");
-    /// m2m.insert(2, "a");
-    /// m2m.insert(2, "b");
+    /// let mut m2m = M2M::from([(1, "a"), (1, "b"), (2, "a"), (2, "b")]);
     ///
     /// let mut iter = m2m.iter();
     ///
@@ -235,12 +225,7 @@ impl<L, R> M2M<L, R> {
     /// ```
     /// use p_m2m::M2M;
     ///
-    /// let mut m2m = M2M::new();
-    ///
-    /// m2m.insert(1, "a");
-    /// m2m.insert(1, "b");
-    /// m2m.insert(2, "a");
-    /// m2m.insert(2, "b");
+    /// let mut m2m = M2M::from([(1, "a"), (1, "b"), (2, "a"), (2, "b")]);
     ///
     /// m2m.iter_mut().for_each(|(l, r)| *l += 2);
     ///
@@ -265,12 +250,7 @@ impl<L, R> M2M<L, R> {
     /// ```
     /// use p_m2m::M2M;
     ///
-    /// let mut m2m = M2M::new();
-    ///
-    /// m2m.insert(1, "a");
-    /// m2m.insert(1, "b");
-    /// m2m.insert(2, "c");
-    /// m2m.insert(2, "d");
+    /// let mut m2m = M2M::from([(1, "a"), (1, "b"), (2, "c"), (2, "d")]);
     ///
     /// let rights = m2m.get_rights(&1);
     /// assert_eq!(rights, Some(vec![&"a", &"b"]));
@@ -300,12 +280,7 @@ impl<L, R> M2M<L, R> {
     /// ```
     /// use p_m2m::M2M;
     ///
-    /// let mut m2m = M2M::new();
-    ///
-    /// m2m.insert(1, "a");
-    /// m2m.insert(2, "b");
-    /// m2m.insert(3, "a");
-    /// m2m.insert(4, "b");
+    /// let mut m2m = M2M::from([(1, "a"), (2, "b"), (3, "a"), (4, "b")]);
     ///
     /// let lefts = m2m.get_lefts(&"a");
     /// assert_eq!(lefts, Some(vec![&1, &3]));
@@ -335,10 +310,7 @@ impl<L, R> M2M<L, R> {
     /// ```
     /// use p_m2m::M2M;
     ///
-    /// let mut m2m = M2M::new();
-    ///
-    /// m2m.insert(1, "a");
-    /// m2m.insert(1, "b");
+    /// let mut m2m = M2M::from([(1, "a"), (1, "b")]);
     ///
     /// assert!(m2m.contains_left(&1));
     /// assert!(!m2m.contains_left(&3));
@@ -357,10 +329,7 @@ impl<L, R> M2M<L, R> {
     /// ```
     /// use p_m2m::M2M;
     ///
-    /// let mut m2m = M2M::new();
-    ///
-    /// m2m.insert(1, "a");
-    /// m2m.insert(1, "b");
+    /// let mut m2m = M2M::from([(1, "a"), (1, "b")]);
     ///
     /// assert!(m2m.contains_right(&"a"));
     /// assert!(!m2m.contains_right(&"c"));

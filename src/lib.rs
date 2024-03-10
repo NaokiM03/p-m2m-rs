@@ -258,6 +258,28 @@ impl<L, R> M2M<L, R> {
     pub fn as_slice(&self) -> &[(L, R)] {
         self.0.as_slice()
     }
+
+    /// Extract a mutable slice containing all pairs.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use p_m2m::M2M;
+    ///
+    /// let mut m2m = M2M::from([(1, "a"), (1, "b")]);
+    ///
+    /// let slice = m2m.as_mut_slice();
+    ///
+    /// assert_eq!(slice[0], (1, "a"));
+    /// assert_eq!(slice[1], (1, "b"));
+    ///
+    /// slice[1].0 = 3;
+    ///
+    /// assert_eq!(slice[1], (3, "b"));
+    /// ```
+    pub fn as_mut_slice(&mut self) -> &mut [(L, R)] {
+        self.0.as_mut_slice()
+    }
 }
 
 impl<L, R> M2M<L, R> {

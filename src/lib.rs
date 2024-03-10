@@ -13,10 +13,16 @@ impl<L, R> Default for M2M<L, R> {
     }
 }
 
-impl<L, R> FromIterator<(L, R)> for M2M<L, R> {
+impl<L, R> FromIterator<(L, R)> for M2M<L, R>
+where
+    L: Ord,
+    R: Ord,
+{
     #[inline]
     fn from_iter<T: IntoIterator<Item = (L, R)>>(iter: T) -> Self {
-        let v = iter.into_iter().collect();
+        let mut v: Vec<(L, R)> = iter.into_iter().collect();
+        v.sort();
+        v.dedup();
         M2M(v)
     }
 }

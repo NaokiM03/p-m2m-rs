@@ -21,8 +21,10 @@ where
     #[inline]
     fn from_iter<T: IntoIterator<Item = (L, R)>>(iter: T) -> Self {
         let mut v: Vec<(L, R)> = iter.into_iter().collect();
+
         v.sort();
         v.dedup();
+
         M2M(v)
     }
 }
@@ -81,11 +83,12 @@ impl<L, R> M2M<L, R> {
         let value = (left, right);
 
         if self.0.contains(&value) {
-            false
-        } else {
-            self.0.push(value);
-            true
+            return false;
         }
+
+        self.0.push(value);
+
+        true
     }
 
     /// Clears the m2m, removing all left-right pairs.
@@ -171,10 +174,10 @@ impl<L, R> M2M<L, R> {
         }
 
         if rights.is_empty() {
-            None
-        } else {
-            Some(rights)
+            return None;
         }
+
+        Some(rights)
     }
 
     /// Returns `true` if the m2m contains the specified left-right pair.
@@ -307,10 +310,10 @@ impl<L, R> M2M<L, R> {
             .collect();
 
         if rights.is_empty() {
-            None
-        } else {
-            Some(rights)
+            return None;
         }
+
+        Some(rights)
     }
 
     /// Returns a reference to the left values corresponding to the right.
@@ -337,10 +340,10 @@ impl<L, R> M2M<L, R> {
             .collect();
 
         if lefts.is_empty() {
-            None
-        } else {
-            Some(lefts)
+            return None;
         }
+
+        Some(lefts)
     }
 
     /// Returns `true` if the m2m contains the specified left value.

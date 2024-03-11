@@ -346,6 +346,70 @@ impl<L, R> M2M<L, R> {
         Some(lefts)
     }
 
+    /// Returns a mutable reference to the right values corresponding to the left.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use p_m2m::M2M;
+    ///
+    /// let mut m2m = M2M::from([(1, 11), (1, 111), (2, 22), (2, 222)]);
+    ///
+    /// let rights = m2m.get_rights_mut(&1).unwrap();
+    /// rights.into_iter().for_each(|r| *r *= 3);
+    ///
+    /// assert_eq!(m2m.rights(), Some(vec![&22, &33, &222, &333]));
+    /// ```
+    pub fn get_rights_mut(&mut self, left: &L) -> Option<Vec<&mut R>>
+    where
+        L: PartialEq,
+    {
+        let rights: Vec<&mut R> = self
+            .0
+            .iter_mut()
+            .filter(|(l, _)| l == left)
+            .map(|(_, r)| r)
+            .collect();
+
+        if rights.is_empty() {
+            return None;
+        }
+
+        Some(rights)
+    }
+
+    /// Returns a mutable reference to the left values corresponding to the right.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use p_m2m::M2M;
+    ///
+    /// let mut m2m = M2M::from([(1, "a"), (1, "b"), (2, "a"), (2, "b")]);
+    ///
+    /// let lefts = m2m.get_lefts_mut(&"a").unwrap();
+    /// lefts.into_iter().for_each(|l| *l *= 3);
+    ///
+    /// assert_eq!(m2m.lefts(), Some(vec![&1, &2, &3, &6]));
+    /// ```
+    pub fn get_lefts_mut(&mut self, right: &R) -> Option<Vec<&mut L>>
+    where
+        R: PartialEq,
+    {
+        let lefts: Vec<&mut L> = self
+            .0
+            .iter_mut()
+            .filter(|(_, r)| r == right)
+            .map(|(l, _)| l)
+            .collect();
+
+        if lefts.is_empty() {
+            return None;
+        }
+
+        Some(lefts)
+    }
+
     /// Returns `true` if the m2m contains the specified left value.
     ///
     /// # Examples

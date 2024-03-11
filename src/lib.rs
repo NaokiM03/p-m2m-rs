@@ -1,5 +1,7 @@
 use core::slice::{Iter, IterMut};
 
+use std::vec::IntoIter as VecIntoIter;
+
 /// A many-to-many implemented as a `Vec<(L, R)>`.
 ///
 /// M2M is just a wrapper around a Vec.
@@ -46,6 +48,33 @@ where
 
     fn from(value: [(L, R); N]) -> Self {
         M2M::from_iter(value)
+    }
+}
+
+impl<'a, L, R> IntoIterator for &'a M2M<L, R> {
+    type Item = &'a (L, R);
+    type IntoIter = Iter<'a, (L, R)>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.iter()
+    }
+}
+
+impl<'a, L, R> IntoIterator for &'a mut M2M<L, R> {
+    type Item = &'a mut (L, R);
+    type IntoIter = IterMut<'a, (L, R)>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.iter_mut()
+    }
+}
+
+impl<L, R> IntoIterator for M2M<L, R> {
+    type Item = (L, R);
+    type IntoIter = VecIntoIter<(L, R)>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.0.into_iter()
     }
 }
 
@@ -217,6 +246,7 @@ impl<L, R> M2M<L, R> {
     /// assert_eq!(iter.next(), Some(&(2, "b")));
     /// assert_eq!(iter.next(), None);
     /// ```
+    #[inline]
     pub fn iter(&self) -> Iter<(L, R)> {
         self.0.iter()
     }
@@ -240,6 +270,7 @@ impl<L, R> M2M<L, R> {
     /// assert_eq!(iter.next(), Some(&(4, "b")));
     /// assert_eq!(iter.next(), None);
     /// ```
+    #[inline]
     pub fn iter_mut(&mut self) -> IterMut<(L, R)> {
         self.0.iter_mut()
     }

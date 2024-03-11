@@ -121,11 +121,21 @@ impl<L, R> M2M<L, R> {
     /// assert!(m2m.insert(2, "b"));
     ///
     /// assert!(!m2m.insert(1, "a"));
+    ///
+    /// assert!(m2m.insert(1, "c"));
+    ///
+    /// let mut iter = m2m.iter();
+    ///
+    /// assert_eq!(iter.next(), Some(&(1, "a")));
+    /// assert_eq!(iter.next(), Some(&(1, "b")));
+    /// assert_eq!(iter.next(), Some(&(1, "c")));
+    /// assert_eq!(iter.next(), Some(&(2, "a")));
+    /// assert_eq!(iter.next(), Some(&(2, "b")));
     /// ```
     pub fn insert(&mut self, left: L, right: R) -> bool
     where
-        L: PartialEq,
-        R: PartialEq,
+        L: Ord,
+        R: Ord,
     {
         let value = (left, right);
 
@@ -134,6 +144,7 @@ impl<L, R> M2M<L, R> {
         }
 
         self.0.push(value);
+        self.0.sort();
 
         true
     }

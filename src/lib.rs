@@ -380,4 +380,60 @@ impl<L, R> M2M<L, R> {
     {
         self.0.iter().any(|(_, r)| r == right)
     }
+
+    /// Returns a reference to all left values.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use p_m2m::M2M;
+    ///
+    /// let mut m2m = M2M::from([(1, "a"), (2, "b"), (3, "a"), (4, "b"), (1, "a")]);
+    ///
+    /// let lefts = m2m.lefts();
+    /// assert_eq!(lefts, Some(vec![&1, &2, &3, &4]));
+    /// ```
+    pub fn lefts(&self) -> Option<Vec<&L>>
+    where
+        L: Ord,
+    {
+        let mut v: Vec<&L> = self.0.iter().map(|(l, _)| l).collect();
+
+        if v.is_empty() {
+            return None;
+        }
+
+        v.sort();
+        v.dedup();
+
+        Some(v)
+    }
+
+    /// Returns a reference to all right values.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use p_m2m::M2M;
+    ///
+    /// let mut m2m = M2M::from([(1, "a"), (1, "b"), (2, "c"), (2, "d"), (1, "a")]);
+    ///
+    /// let rights = m2m.rights();
+    /// assert_eq!(rights, Some(vec![&"a", &"b", &"c", &"d"]));
+    /// ```
+    pub fn rights(&self) -> Option<Vec<&R>>
+    where
+        R: Ord,
+    {
+        let mut v: Vec<&R> = self.0.iter().map(|(_, r)| r).collect();
+
+        if v.is_empty() {
+            return None;
+        }
+
+        v.sort();
+        v.dedup();
+
+        Some(v)
+    }
 }

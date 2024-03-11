@@ -73,6 +73,24 @@ impl<L, R> IntoIterator for M2M<L, R> {
     type Item = (L, R);
     type IntoIter = VecIntoIter<(L, R)>;
 
+    /// Creates an iterator.
+    /// The m2m cannot be used after calling this.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use p_m2m::M2M;
+    ///
+    /// let m2m = M2M::from([(1, "a"), (1, "b"), (2, "a"), (2, "b")]);
+    ///
+    /// let mut iter = m2m.into_iter();
+    ///
+    /// assert_eq!(iter.next(), Some((1, "a")));
+    /// assert_eq!(iter.next(), Some((1, "b")));
+    /// assert_eq!(iter.next(), Some((2, "a")));
+    /// assert_eq!(iter.next(), Some((2, "b")));
+    /// assert_eq!(iter.next(), None);
+    /// ```
     fn into_iter(self) -> Self::IntoIter {
         self.0.into_iter()
     }

@@ -283,6 +283,54 @@ impl<L, R> M2M<L, R> {
     pub fn as_mut_slice(&mut self) -> &mut [(L, R)] {
         self.0.as_mut_slice()
     }
+
+    /// Retains only the pairs specified by the predicate.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use p_m2m::M2M;
+    ///
+    /// let mut m2m = M2M::from([(1, "a"), (1, "b"), (2, "a"), (2, "b")]);
+    ///
+    /// m2m.retain(|(l, _)| l % 2 == 0);
+    ///
+    /// let mut iter = m2m.iter();
+    ///
+    /// assert_eq!(iter.next(), Some(&(2, "a")));
+    /// assert_eq!(iter.next(), Some(&(2, "b")));
+    /// assert_eq!(iter.next(), None);
+    /// ```
+    pub fn retain<F>(&mut self, mut f: F)
+    where
+        F: FnMut(&(L, R)) -> bool,
+    {
+        self.0.retain_mut(|pair| f(pair));
+    }
+
+    /// Rejects the pairs specified by the predicate.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use p_m2m::M2M;
+    ///
+    /// let mut m2m = M2M::from([(1, "a"), (1, "b"), (2, "a"), (2, "b")]);
+    ///
+    /// m2m.reject(|(l, _)| l % 2 == 0);
+    ///
+    /// let mut iter = m2m.iter();
+    ///
+    /// assert_eq!(iter.next(), Some(&(1, "a")));
+    /// assert_eq!(iter.next(), Some(&(1, "b")));
+    /// assert_eq!(iter.next(), None);
+    /// ```
+    pub fn reject<F>(&mut self, mut f: F)
+    where
+        F: FnMut(&(L, R)) -> bool,
+    {
+        self.0.retain_mut(|pair| !f(pair));
+    }
 }
 
 impl<L, R> M2M<L, R> {

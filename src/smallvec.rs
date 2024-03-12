@@ -2,7 +2,7 @@ use core::fmt::{Debug, Formatter, Result};
 use core::iter::FromIterator;
 use core::slice::{Iter, IterMut};
 
-use smallvec::{Array, SmallVec};
+use smallvec::{Array, IntoIter, SmallVec};
 
 pub struct SmallM2M<A: Array>(SmallVec<A>);
 
@@ -45,6 +45,92 @@ where
     /// ```
     fn from(value: [(L, R); N]) -> Self {
         SmallM2M::from_iter(value)
+    }
+}
+
+impl<'a, L, R, A: Array<Item = (L, R)>> IntoIterator for &'a SmallM2M<A>
+where
+    (L, R): 'a,
+{
+    type Item = &'a (L, R);
+    type IntoIter = Iter<'a, (L, R)>;
+
+    /// Creates an iterator from a value.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use p_m2m::SmallM2M;
+    ///
+    /// let m2m: SmallM2M<[(u8, &str); 4]> = SmallM2M::from([(1, "a"), (1, "b"), (2, "a"), (2, "b")]);
+    ///
+    /// let mut iter = m2m.into_iter();
+    ///
+    /// assert_eq!(iter.next(), Some(&(1, "a")));
+    /// assert_eq!(iter.next(), Some(&(1, "b")));
+    /// assert_eq!(iter.next(), Some(&(2, "a")));
+    /// assert_eq!(iter.next(), Some(&(2, "b")));
+    /// assert_eq!(iter.next(), None);
+    /// ```
+    fn into_iter(self) -> Self::IntoIter {
+        self.iter()
+    }
+}
+
+impl<'a, L, R, A: Array<Item = (L, R)>> IntoIterator for &'a mut SmallM2M<A>
+where
+    (L, R): 'a,
+{
+    type Item = &'a mut (L, R);
+    type IntoIter = IterMut<'a, (L, R)>;
+
+    /// Creates an iterator from a value.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// let m2m: &mut SmallM2M<[(u8, &str); 4]> =
+    ///     &mut SmallM2M::from([(1, "a"), (1, "b"), (2, "a"), (2, "b")]);
+    ///
+    /// m2m.into_iter().for_each(|(l, _)| *l *= 3);
+    ///
+    /// let mut iter = m2m.iter();
+    ///
+    /// assert_eq!(iter.next(), Some(&(3, "a")));
+    /// assert_eq!(iter.next(), Some(&(3, "b")));
+    /// assert_eq!(iter.next(), Some(&(6, "a")));
+    /// assert_eq!(iter.next(), Some(&(6, "b")));
+    /// assert_eq!(iter.next(), None);
+    /// ```
+    fn into_iter(self) -> Self::IntoIter {
+        self.iter_mut()
+    }
+}
+
+impl<L, R, A: Array<Item = (L, R)>> IntoIterator for SmallM2M<A> {
+    type Item = (L, R);
+    type IntoIter = IntoIter<A>;
+
+    /// Creates an iterator from a value.
+    /// The m2m cannot be used after calling this.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use p_m2m::SmallM2M;
+    ///
+    /// let m2m: SmallM2M<[(u8, &str); 4]> = SmallM2M::from([(1, "a"), (1, "b"), (2, "a"), (2, "b")]);
+    ///
+    /// let mut iter = m2m.into_iter();
+    ///
+    /// assert_eq!(iter.next(), Some((1, "a")));
+    /// assert_eq!(iter.next(), Some((1, "b")));
+    /// assert_eq!(iter.next(), Some((2, "a")));
+    /// assert_eq!(iter.next(), Some((2, "b")));
+    /// assert_eq!(iter.next(), None);
+    /// ```
+    fn into_iter(self) -> Self::IntoIter {
+        self.0.into_iter()
     }
 }
 

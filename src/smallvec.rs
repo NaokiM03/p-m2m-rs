@@ -66,10 +66,10 @@ where
     ///
     /// let mut iter = m2m.into_iter();
     ///
-    /// assert_eq!(iter.next(), Some(&(1, "a")));
-    /// assert_eq!(iter.next(), Some(&(1, "b")));
-    /// assert_eq!(iter.next(), Some(&(2, "a")));
-    /// assert_eq!(iter.next(), Some(&(2, "b")));
+    /// assert_eq!(iter.next(), Some((1, "a")));
+    /// assert_eq!(iter.next(), Some((1, "b")));
+    /// assert_eq!(iter.next(), Some((2, "a")));
+    /// assert_eq!(iter.next(), Some((2, "b")));
     /// assert_eq!(iter.next(), None);
     /// ```
     fn into_iter(self) -> Self::IntoIter {
@@ -89,6 +89,8 @@ where
     /// # Examples
     ///
     /// ```
+    /// use p_m2m::SmallM2M;
+    ///
     /// let m2m: &mut SmallM2M<[(u8, &str); 4]> =
     ///     &mut SmallM2M::from([(1, "a"), (1, "b"), (2, "a"), (2, "b")]);
     ///

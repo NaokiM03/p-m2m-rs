@@ -117,7 +117,7 @@ impl<L, R> IntoIterator for M2M<L, R> {
     type Item = (L, R);
     type IntoIter = VecIntoIter<(L, R)>;
 
-    /// Creates an iterator.
+    /// Creates an iterator from a value.
     /// The m2m cannot be used after calling this.
     ///
     /// # Examples
@@ -333,7 +333,7 @@ impl<L, R> M2M<L, R> {
     ///
     /// let mut m2m = M2M::from([(1, "a"), (1, "b"), (2, "a"), (2, "b")]);
     ///
-    /// m2m.iter_mut().for_each(|(l, r)| *l += 2);
+    /// m2m.iter_mut().for_each(|(l, _)| *l += 2);
     ///
     /// let mut iter = m2m.iter();
     ///

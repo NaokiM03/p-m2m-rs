@@ -2,6 +2,12 @@ use core::slice::{Iter, IterMut};
 
 use std::vec::IntoIter as VecIntoIter;
 
+#[cfg(feature = "smallvec")]
+mod smallvec;
+
+#[cfg(feature = "smallvec")]
+pub use smallvec::SmallM2M;
+
 /// A many-to-many implemented as a `Vec<(L, R)>`.
 ///
 /// M2M is just a wrapper around a Vec.

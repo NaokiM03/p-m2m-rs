@@ -25,3 +25,21 @@ impl<L: Ord, R: Ord, A: Array<Item = (L, R)>> FromIterator<(L, R)> for SmallM2M<
         SmallM2M(v)
     }
 }
+
+impl<L, R, const N: usize, A: Array<Item = (L, R)>> From<[(L, R); N]> for SmallM2M<A>
+where
+    (L, R): Ord,
+{
+    /// Converts to this type from the input type.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use p_m2m::SmallM2M;
+    ///
+    /// let m2m: SmallM2M<[(u8, &str); 4]> = SmallM2M::from([(1, "a"), (1, "b"), (2, "a"), (2, "b")]);
+    /// ```
+    fn from(value: [(L, R); N]) -> Self {
+        SmallM2M::from_iter(value)
+    }
+}

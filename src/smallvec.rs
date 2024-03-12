@@ -1,6 +1,6 @@
 use core::fmt::{Debug, Formatter, Result};
 use core::iter::FromIterator;
-use core::slice::Iter;
+use core::slice::{Iter, IterMut};
 
 use smallvec::{Array, SmallVec};
 
@@ -69,5 +69,29 @@ impl<L, R, A: Array<Item = (L, R)>> SmallM2M<A> {
     #[inline]
     pub fn iter(&self) -> Iter<(L, R)> {
         self.0.iter()
+    }
+
+    /// Returns a mutable iterator.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use p_m2m::SmallM2M;
+    ///
+    /// let mut m2m: SmallM2M<[(u8, &str); 4]> = SmallM2M::from([(1, "a"), (1, "b"), (2, "a"), (2, "b")]);
+    ///
+    /// m2m.iter_mut().for_each(|(l, _)| *l *= 3);
+    ///
+    /// let mut iter = m2m.iter();
+    ///
+    /// assert_eq!(iter.next(), Some(&(3, "a")));
+    /// assert_eq!(iter.next(), Some(&(3, "b")));
+    /// assert_eq!(iter.next(), Some(&(6, "a")));
+    /// assert_eq!(iter.next(), Some(&(6, "b")));
+    /// assert_eq!(iter.next(), None);
+    /// ```
+    #[inline]
+    pub fn iter_mut(&mut self) -> IterMut<(L, R)> {
+        self.0.iter_mut()
     }
 }

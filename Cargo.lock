@@ -3,7 +3,14 @@
 version = 3
 
 [[package]]
-name = "p-m2m"
+name = "pseudo-m2m"
+version = "0.1.0"
+dependencies = [
+ "pseudo-small-m2m",
+]
+
+[[package]]
+name = "pseudo-small-m2m"
 version = "0.1.0"
 dependencies = [
  "smallvec",

@@ -3,10 +3,7 @@ use core::slice::{Iter, IterMut};
 use std::vec::IntoIter as VecIntoIter;
 
 #[cfg(feature = "smallvec")]
-mod smallvec;
-
-#[cfg(feature = "smallvec")]
-pub use smallvec::SmallM2M;
+pub use pseudo_small_m2m::SmallM2M;
 
 /// A many-to-many implemented as a `Vec<(L, R)>`.
 ///
@@ -45,7 +42,7 @@ where
     /// # Examples
     ///
     /// ```
-    /// use p_m2m::M2M;
+    /// use pseudo_m2m::M2M;
     ///
     /// let m2m = M2M::from([(1, "a"), (1, "b"), (2, "a"), (2, "b")]);
     /// ```
@@ -65,7 +62,7 @@ impl<'a, L, R> IntoIterator for &'a M2M<L, R> {
     /// # Examples
     ///
     /// ```
-    /// use p_m2m::M2M;
+    /// use pseudo_m2m::M2M;
     ///
     /// let m2m = M2M::from([(1, "a"), (1, "b"), (2, "a"), (2, "b")]);
     ///
@@ -92,7 +89,7 @@ impl<'a, L, R> IntoIterator for &'a mut M2M<L, R> {
     /// # Examples
     ///
     /// ```
-    /// use p_m2m::M2M;
+    /// use pseudo_m2m::M2M;
     ///
     /// let m2m = &mut M2M::from([(1, "a"), (1, "b"), (2, "a"), (2, "b")]);
     ///
@@ -121,7 +118,7 @@ impl<L, R> IntoIterator for M2M<L, R> {
     /// # Examples
     ///
     /// ```
-    /// use p_m2m::M2M;
+    /// use pseudo_m2m::M2M;
     ///
     /// let m2m = M2M::from([(1, "a"), (1, "b"), (2, "a"), (2, "b")]);
     ///
@@ -153,7 +150,7 @@ impl<L, R> M2M<L, R> {
     /// # Examples
     ///
     /// ```
-    /// use p_m2m::M2M;
+    /// use pseudo_m2m::M2M;
     ///
     /// let mut m2m = M2M::new();
     ///
@@ -195,7 +192,7 @@ impl<L, R> M2M<L, R> {
     /// # Examples
     ///
     /// ```
-    /// use p_m2m::M2M;
+    /// use pseudo_m2m::M2M;
     ///
     /// let mut m2m = M2M::from([(1, "a"), (1, "b")]);
     ///
@@ -212,7 +209,7 @@ impl<L, R> M2M<L, R> {
     /// # Examples
     ///
     /// ```
-    /// use p_m2m::M2M;
+    /// use pseudo_m2m::M2M;
     ///
     /// let mut m2m = M2M::new();
     ///
@@ -229,7 +226,7 @@ impl<L, R> M2M<L, R> {
     /// # Examples
     ///
     /// ```
-    /// use p_m2m::M2M;
+    /// use pseudo_m2m::M2M;
     ///
     /// let mut m2m = M2M::new();
     ///
@@ -247,7 +244,7 @@ impl<L, R> M2M<L, R> {
     /// # Examples
     ///
     /// ```
-    /// use p_m2m::M2M;
+    /// use pseudo_m2m::M2M;
     ///
     /// let mut m2m = M2M::from([(1, "a")]);
     ///
@@ -284,7 +281,7 @@ impl<L, R> M2M<L, R> {
     /// # Examples
     ///
     /// ```
-    /// use p_m2m::M2M;
+    /// use pseudo_m2m::M2M;
     ///
     /// let m2m = M2M::from([(1, "a")]);
     ///
@@ -304,7 +301,7 @@ impl<L, R> M2M<L, R> {
     /// # Examples
     ///
     /// ```
-    /// use p_m2m::M2M;
+    /// use pseudo_m2m::M2M;
     ///
     /// let m2m = M2M::from([(1, "a"), (1, "b"), (2, "a"), (2, "b")]);
     ///
@@ -326,7 +323,7 @@ impl<L, R> M2M<L, R> {
     /// # Examples
     ///
     /// ```
-    /// use p_m2m::M2M;
+    /// use pseudo_m2m::M2M;
     ///
     /// let mut m2m = M2M::from([(1, "a"), (1, "b"), (2, "a"), (2, "b")]);
     ///
@@ -350,7 +347,7 @@ impl<L, R> M2M<L, R> {
     /// # Examples
     ///
     /// ```
-    /// use p_m2m::M2M;
+    /// use pseudo_m2m::M2M;
     ///
     /// let m2m = M2M::from([(1, "a"), (1, "b")]);
     ///
@@ -368,7 +365,7 @@ impl<L, R> M2M<L, R> {
     /// # Examples
     ///
     /// ```
-    /// use p_m2m::M2M;
+    /// use pseudo_m2m::M2M;
     ///
     /// let mut m2m = M2M::from([(1, "a"), (1, "b")]);
     ///
@@ -390,7 +387,7 @@ impl<L, R> M2M<L, R> {
     /// # Examples
     ///
     /// ```
-    /// use p_m2m::M2M;
+    /// use pseudo_m2m::M2M;
     ///
     /// let mut m2m = M2M::from([(1, "a"), (1, "b"), (2, "a"), (2, "b")]);
     ///
@@ -414,7 +411,7 @@ impl<L, R> M2M<L, R> {
     /// # Examples
     ///
     /// ```
-    /// use p_m2m::M2M;
+    /// use pseudo_m2m::M2M;
     ///
     /// let mut m2m = M2M::from([(1, "a"), (1, "b"), (2, "a"), (2, "b")]);
     ///
@@ -440,7 +437,7 @@ impl<L, R> M2M<L, R> {
     /// # Examples
     ///
     /// ```
-    /// use p_m2m::M2M;
+    /// use pseudo_m2m::M2M;
     ///
     /// let m2m = M2M::from([(1, "a"), (1, "b"), (2, "c"), (2, "d")]);
     ///
@@ -470,7 +467,7 @@ impl<L, R> M2M<L, R> {
     /// # Examples
     ///
     /// ```
-    /// use p_m2m::M2M;
+    /// use pseudo_m2m::M2M;
     ///
     /// let m2m = M2M::from([(1, "a"), (2, "b"), (3, "a"), (4, "b")]);
     ///
@@ -500,7 +497,7 @@ impl<L, R> M2M<L, R> {
     /// # Examples
     ///
     /// ```
-    /// use p_m2m::M2M;
+    /// use pseudo_m2m::M2M;
     ///
     /// let mut m2m = M2M::from([(1, 11), (1, 111), (2, 22), (2, 222)]);
     ///
@@ -532,7 +529,7 @@ impl<L, R> M2M<L, R> {
     /// # Examples
     ///
     /// ```
-    /// use p_m2m::M2M;
+    /// use pseudo_m2m::M2M;
     ///
     /// let mut m2m = M2M::from([(1, "a"), (1, "b"), (2, "a"), (2, "b")]);
     ///
@@ -564,7 +561,7 @@ impl<L, R> M2M<L, R> {
     /// # Examples
     ///
     /// ```
-    /// use p_m2m::M2M;
+    /// use pseudo_m2m::M2M;
     ///
     /// let m2m = M2M::from([(1, "a"), (1, "b")]);
     ///
@@ -583,7 +580,7 @@ impl<L, R> M2M<L, R> {
     /// # Examples
     ///
     /// ```
-    /// use p_m2m::M2M;
+    /// use pseudo_m2m::M2M;
     ///
     /// let m2m = M2M::from([(1, "a"), (1, "b")]);
     ///
@@ -602,7 +599,7 @@ impl<L, R> M2M<L, R> {
     /// # Examples
     ///
     /// ```
-    /// use p_m2m::M2M;
+    /// use pseudo_m2m::M2M;
     ///
     /// let m2m = M2M::from([(1, "a"), (2, "b"), (3, "a"), (4, "b"), (1, "a")]);
     ///
@@ -630,7 +627,7 @@ impl<L, R> M2M<L, R> {
     /// # Examples
     ///
     /// ```
-    /// use p_m2m::M2M;
+    /// use pseudo_m2m::M2M;
     ///
     /// let m2m = M2M::from([(1, "a"), (1, "b"), (2, "c"), (2, "d"), (1, "a")]);
     ///
@@ -659,7 +656,7 @@ impl<L, R> M2M<L, R> {
     /// # Examples
     ///
     /// ```
-    /// use p_m2m::M2M;
+    /// use pseudo_m2m::M2M;
     ///
     /// let m2m = M2M::from([(1, "a"), (2, "b"), (3, "a"), (4, "b"), (1, "a")]);
     ///
@@ -688,7 +685,7 @@ impl<L, R> M2M<L, R> {
     /// # Examples
     ///
     /// ```
-    /// use p_m2m::M2M;
+    /// use pseudo_m2m::M2M;
     ///
     /// let m2m = M2M::from([(1, "a"), (1, "b"), (2, "c"), (2, "d"), (1, "a")]);
     ///
@@ -716,7 +713,7 @@ impl<L, R> M2M<L, R> {
     /// # Examples
     ///
     /// ```
-    /// use p_m2m::M2M;
+    /// use pseudo_m2m::M2M;
     ///
     /// let m2m = M2M::from([(1, "a"), (1, "b"), (2, "a"), (2, "b"), (3, "a")]);
     ///

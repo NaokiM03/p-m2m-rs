@@ -61,6 +61,24 @@ impl<'a, L, R> IntoIterator for &'a M2M<L, R> {
     type Item = &'a (L, R);
     type IntoIter = Iter<'a, (L, R)>;
 
+    /// Creates an iterator from a value.
+    /// The m2m cannot be used after calling this.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use p_m2m::M2M;
+    ///
+    /// let m2m = M2M::from([(1, "a"), (1, "b"), (2, "a"), (2, "b")]);
+    ///
+    /// let mut iter = m2m.into_iter();
+    ///
+    /// assert_eq!(iter.next(), Some((1, "a")));
+    /// assert_eq!(iter.next(), Some((1, "b")));
+    /// assert_eq!(iter.next(), Some((2, "a")));
+    /// assert_eq!(iter.next(), Some((2, "b")));
+    /// assert_eq!(iter.next(), None);
+    /// ```
     fn into_iter(self) -> Self::IntoIter {
         self.iter()
     }
@@ -70,6 +88,26 @@ impl<'a, L, R> IntoIterator for &'a mut M2M<L, R> {
     type Item = &'a mut (L, R);
     type IntoIter = IterMut<'a, (L, R)>;
 
+    /// Creates an iterator from a value.
+    /// The m2m cannot be used after calling this.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use p_m2m::M2M;
+    ///
+    /// let m2m = &mut M2M::from([(1, "a"), (1, "b"), (2, "a"), (2, "b")]);
+    ///
+    /// m2m.into_iter().for_each(|(l, _)| *l *= 3);
+    ///
+    /// let mut iter = m2m.iter();
+    ///
+    /// assert_eq!(iter.next(), Some(&(3, "a")));
+    /// assert_eq!(iter.next(), Some(&(3, "b")));
+    /// assert_eq!(iter.next(), Some(&(6, "a")));
+    /// assert_eq!(iter.next(), Some(&(6, "b")));
+    /// assert_eq!(iter.next(), None);
+    /// ```
     fn into_iter(self) -> Self::IntoIter {
         self.iter_mut()
     }

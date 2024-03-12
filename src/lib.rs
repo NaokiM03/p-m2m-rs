@@ -23,8 +23,7 @@ impl<L, R> Default for M2M<L, R> {
 
 impl<L, R> FromIterator<(L, R)> for M2M<L, R>
 where
-    L: Ord,
-    R: Ord,
+    (L, R): Ord,
 {
     #[inline]
     fn from_iter<T: IntoIterator<Item = (L, R)>>(iter: T) -> Self {
@@ -39,8 +38,7 @@ where
 
 impl<L, R, const N: usize> From<[(L, R); N]> for M2M<L, R>
 where
-    L: Ord,
-    R: Ord,
+    (L, R): Ord,
 {
     /// Converts to this type from the input type.
     ///
@@ -178,8 +176,7 @@ impl<L, R> M2M<L, R> {
     /// ```
     pub fn insert(&mut self, left: L, right: R) -> bool
     where
-        L: Ord,
-        R: Ord,
+        (L, R): Ord,
     {
         let value = (left, right);
 
@@ -730,8 +727,8 @@ impl<L, R> M2M<L, R> {
     /// ```
     pub fn flip(&self) -> M2M<R, L>
     where
-        L: Ord + Clone,
-        R: Ord + Clone,
+        (L, R): Clone,
+        (R, L): Ord,
     {
         let mut v: Vec<(R, L)> = self.0.iter().cloned().map(|(l, r)| (r, l)).collect();
 

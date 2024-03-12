@@ -245,7 +245,7 @@ impl<L, R> M2M<L, R> {
     /// ```
     /// use p_m2m::M2M;
     ///
-    /// let mut m2m = M2M::from([(1, "a")]);
+    /// let m2m = M2M::from([(1, "a")]);
     ///
     /// assert!(m2m.contains(&1, &"a"));
     /// assert!(!m2m.contains(&1, &"b"));
@@ -265,7 +265,7 @@ impl<L, R> M2M<L, R> {
     /// ```
     /// use p_m2m::M2M;
     ///
-    /// let mut m2m = M2M::from([(1, "a"), (1, "b"), (2, "a"), (2, "b")]);
+    /// let m2m = M2M::from([(1, "a"), (1, "b"), (2, "a"), (2, "b")]);
     ///
     /// let mut iter = m2m.iter();
     ///
@@ -401,7 +401,7 @@ impl<L, R> M2M<L, R> {
     /// ```
     /// use p_m2m::M2M;
     ///
-    /// let mut m2m = M2M::from([(1, "a"), (1, "b"), (2, "c"), (2, "d")]);
+    /// let m2m = M2M::from([(1, "a"), (1, "b"), (2, "c"), (2, "d")]);
     ///
     /// let rights = m2m.get_rights(&1);
     /// assert_eq!(rights, Some(vec![&"a", &"b"]));
@@ -431,7 +431,7 @@ impl<L, R> M2M<L, R> {
     /// ```
     /// use p_m2m::M2M;
     ///
-    /// let mut m2m = M2M::from([(1, "a"), (2, "b"), (3, "a"), (4, "b")]);
+    /// let m2m = M2M::from([(1, "a"), (2, "b"), (3, "a"), (4, "b")]);
     ///
     /// let lefts = m2m.get_lefts(&"a");
     /// assert_eq!(lefts, Some(vec![&1, &3]));
@@ -525,7 +525,7 @@ impl<L, R> M2M<L, R> {
     /// ```
     /// use p_m2m::M2M;
     ///
-    /// let mut m2m = M2M::from([(1, "a"), (1, "b")]);
+    /// let m2m = M2M::from([(1, "a"), (1, "b")]);
     ///
     /// assert!(m2m.contains_left(&1));
     /// assert!(!m2m.contains_left(&3));
@@ -544,7 +544,7 @@ impl<L, R> M2M<L, R> {
     /// ```
     /// use p_m2m::M2M;
     ///
-    /// let mut m2m = M2M::from([(1, "a"), (1, "b")]);
+    /// let m2m = M2M::from([(1, "a"), (1, "b")]);
     ///
     /// assert!(m2m.contains_right(&"a"));
     /// assert!(!m2m.contains_right(&"c"));
@@ -563,7 +563,7 @@ impl<L, R> M2M<L, R> {
     /// ```
     /// use p_m2m::M2M;
     ///
-    /// let mut m2m = M2M::from([(1, "a"), (2, "b"), (3, "a"), (4, "b"), (1, "a")]);
+    /// let m2m = M2M::from([(1, "a"), (2, "b"), (3, "a"), (4, "b"), (1, "a")]);
     ///
     /// let lefts = m2m.lefts();
     /// assert_eq!(lefts, Some(vec![&1, &2, &3, &4]));
@@ -591,7 +591,7 @@ impl<L, R> M2M<L, R> {
     /// ```
     /// use p_m2m::M2M;
     ///
-    /// let mut m2m = M2M::from([(1, "a"), (1, "b"), (2, "c"), (2, "d"), (1, "a")]);
+    /// let m2m = M2M::from([(1, "a"), (1, "b"), (2, "c"), (2, "d"), (1, "a")]);
     ///
     /// let rights = m2m.rights();
     /// assert_eq!(rights, Some(vec![&"a", &"b", &"c", &"d"]));
@@ -620,7 +620,7 @@ impl<L, R> M2M<L, R> {
     /// ```
     /// use p_m2m::M2M;
     ///
-    /// let mut m2m = M2M::from([(1, "a"), (2, "b"), (3, "a"), (4, "b"), (1, "a")]);
+    /// let m2m = M2M::from([(1, "a"), (2, "b"), (3, "a"), (4, "b"), (1, "a")]);
     ///
     /// let lefts = m2m.into_lefts();
     /// assert_eq!(lefts, Some(vec![1, 2, 3, 4]));
@@ -649,7 +649,7 @@ impl<L, R> M2M<L, R> {
     /// ```
     /// use p_m2m::M2M;
     ///
-    /// let mut m2m = M2M::from([(1, "a"), (1, "b"), (2, "c"), (2, "d"), (1, "a")]);
+    /// let m2m = M2M::from([(1, "a"), (1, "b"), (2, "c"), (2, "d"), (1, "a")]);
     ///
     /// let rights = m2m.into_rights();
     /// assert_eq!(rights, Some(vec!["a", "b", "c", "d"]));

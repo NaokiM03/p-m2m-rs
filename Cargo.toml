@@ -10,3 +10,4 @@ smallvec = { version = "1.13.1", optional = true }
 
 [features]
 default = []
+readonly = []

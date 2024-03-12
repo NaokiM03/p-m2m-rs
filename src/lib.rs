@@ -669,4 +669,30 @@ impl<L, R> M2M<L, R> {
 
         Some(v)
     }
+
+    /// Flips left an right in all pairs.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use p_m2m::M2M;
+    ///
+    /// let m2m = M2M::from([(1, "a"), (1, "b"), (2, "a"), (2, "b"), (3, "a")]);
+    ///
+    /// let flipped = m2m.flip();
+    ///
+    /// let rights = flipped.get_rights(&"a");
+    /// assert_eq!(rights, Some(vec![&1, &2, &3]));
+    /// ```
+    pub fn flip(&self) -> M2M<R, L>
+    where
+        L: Ord + Clone,
+        R: Ord + Clone,
+    {
+        let mut v: Vec<(R, L)> = self.0.iter().cloned().map(|(l, r)| (r, l)).collect();
+
+        v.sort();
+
+        M2M(v)
+    }
 }

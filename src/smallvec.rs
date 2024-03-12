@@ -1,5 +1,6 @@
 use core::fmt::{Debug, Formatter, Result};
 use core::iter::FromIterator;
+use core::slice::Iter;
 
 use smallvec::{Array, SmallVec};
 
@@ -44,5 +45,29 @@ where
     /// ```
     fn from(value: [(L, R); N]) -> Self {
         SmallM2M::from_iter(value)
+    }
+}
+
+impl<L, R, A: Array<Item = (L, R)>> SmallM2M<A> {
+    /// Returns an iterator.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use p_m2m::SmallM2M;
+    ///
+    /// let m2m: SmallM2M<[(u8, &str); 4]> = SmallM2M::from([(1, "a"), (1, "b"), (2, "a"), (2, "b")]);
+    ///
+    /// let mut iter = m2m.iter();
+    ///
+    /// assert_eq!(iter.next(), Some(&(1, "a")));
+    /// assert_eq!(iter.next(), Some(&(1, "b")));
+    /// assert_eq!(iter.next(), Some(&(2, "a")));
+    /// assert_eq!(iter.next(), Some(&(2, "b")));
+    /// assert_eq!(iter.next(), None);
+    /// ```
+    #[inline]
+    pub fn iter(&self) -> Iter<(L, R)> {
+        self.0.iter()
     }
 }

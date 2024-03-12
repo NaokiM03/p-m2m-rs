@@ -14,7 +14,10 @@ where
     }
 }
 
-impl<L: Ord, R: Ord, A: Array<Item = (L, R)>> FromIterator<(L, R)> for SmallM2M<A> {
+impl<L, R, A: Array<Item = (L, R)>> FromIterator<(L, R)> for SmallM2M<A>
+where
+    (L, R): Ord,
+{
     #[inline]
     fn from_iter<I: IntoIterator<Item = (L, R)>>(iter: I) -> Self {
         let mut v: SmallVec<A> = iter.into_iter().collect();

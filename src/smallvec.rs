@@ -56,6 +56,7 @@ where
     type IntoIter = Iter<'a, (L, R)>;
 
     /// Creates an iterator from a value.
+    /// The m2m cannot be used after calling this.
     ///
     /// # Examples
     ///
@@ -85,6 +86,7 @@ where
     type IntoIter = IterMut<'a, (L, R)>;
 
     /// Creates an iterator from a value.
+    /// The m2m cannot be used after calling this.
     ///
     /// # Examples
     ///

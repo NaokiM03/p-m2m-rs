@@ -261,7 +261,7 @@ impl<L, R, A: Array<Item = (L, R)>> SmallM2M<A> {
     /// use p_m2m::SmallM2M;
     /// use smallvec::smallvec;
     ///
-    /// let mut m2m: SmallM2M<[(u8, &str); 1]> = SmallM2M::from([(1, "a"), (1, "b")]);
+    /// let mut m2m: SmallM2M<[(u8, &str); 2]> = SmallM2M::from([(1, "a"), (1, "b")]);
     ///
     /// assert_eq!(m2m.remove::<[&str; 2]>(&1), Some(smallvec!["a", "b"]));
     /// assert_eq!(m2m.remove::<[&str; 0]>(&1), None);

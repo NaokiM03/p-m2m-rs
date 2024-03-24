@@ -200,6 +200,23 @@ impl<L, R, A: Array<Item = (L, R)>> SmallM2M<A> {
 
         true
     }
+
+    /// Returns the number of pairs in the m2m.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use p_m2m::SmallM2M;
+    ///
+    /// let mut m2m: SmallM2M<[(u8, &str); 0]> = SmallM2M::new();
+    ///
+    /// assert_eq!(m2m.len(), 0);
+    /// m2m.insert(1, "a");
+    /// assert_eq!(m2m.len(), 1);
+    /// ```
+    pub fn len(&self) -> usize {
+        self.0.len()
+    }
 }
 
 impl<L, R, A: Array<Item = (L, R)>> SmallM2M<A> {

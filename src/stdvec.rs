@@ -444,10 +444,10 @@ impl<L, R> M2M<L, R> {
     ///
     /// let m2m = M2M::from([(1, "a"), (1, "b"), (2, "c"), (2, "d")]);
     ///
-    /// let rights = m2m.get_rights(&1);
+    /// let rights = m2m.get_by_left(&1);
     /// assert_eq!(rights, Some(vec![&"a", &"b"]));
     /// ```
-    pub fn get_rights(&self, left: &L) -> Option<Vec<&R>>
+    pub fn get_by_left(&self, left: &L) -> Option<Vec<&R>>
     where
         L: PartialEq,
     {
@@ -474,10 +474,10 @@ impl<L, R> M2M<L, R> {
     ///
     /// let m2m = M2M::from([(1, "a"), (2, "b"), (3, "a"), (4, "b")]);
     ///
-    /// let lefts = m2m.get_lefts(&"a");
+    /// let lefts = m2m.get_by_right(&"a");
     /// assert_eq!(lefts, Some(vec![&1, &3]));
     /// ```
-    pub fn get_lefts(&self, right: &R) -> Option<Vec<&L>>
+    pub fn get_by_right(&self, right: &R) -> Option<Vec<&L>>
     where
         R: PartialEq,
     {
@@ -504,12 +504,12 @@ impl<L, R> M2M<L, R> {
     ///
     /// let mut m2m = M2M::from([(1, 11), (1, 111), (2, 22), (2, 222)]);
     ///
-    /// let rights = m2m.get_rights_mut(&1).unwrap();
+    /// let rights = m2m.get_by_left_mut(&1).unwrap();
     /// rights.into_iter().for_each(|r| *r *= 3);
     ///
     /// assert_eq!(m2m.rights(), Some(vec![&22, &33, &222, &333]));
     /// ```
-    pub fn get_rights_mut(&mut self, left: &L) -> Option<Vec<&mut R>>
+    pub fn get_by_left_mut(&mut self, left: &L) -> Option<Vec<&mut R>>
     where
         L: PartialEq,
     {
@@ -536,12 +536,12 @@ impl<L, R> M2M<L, R> {
     ///
     /// let mut m2m = M2M::from([(1, "a"), (1, "b"), (2, "a"), (2, "b")]);
     ///
-    /// let lefts = m2m.get_lefts_mut(&"a").unwrap();
+    /// let lefts = m2m.get_by_right_mut(&"a").unwrap();
     /// lefts.into_iter().for_each(|l| *l *= 3);
     ///
     /// assert_eq!(m2m.lefts(), Some(vec![&1, &2, &3, &6]));
     /// ```
-    pub fn get_lefts_mut(&mut self, right: &R) -> Option<Vec<&mut L>>
+    pub fn get_by_right_mut(&mut self, right: &R) -> Option<Vec<&mut L>>
     where
         R: PartialEq,
     {
@@ -722,7 +722,7 @@ impl<L, R> M2M<L, R> {
     ///
     /// let flipped = m2m.flip();
     ///
-    /// let rights = flipped.get_rights(&"a");
+    /// let rights = flipped.get_by_left(&"a");
     /// assert_eq!(rights, Some(vec![&1, &2, &3]));
     /// ```
     pub fn flip(&self) -> M2M<R, L>

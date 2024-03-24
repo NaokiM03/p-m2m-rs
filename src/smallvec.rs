@@ -290,6 +290,26 @@ impl<L, R, A: Array<Item = (L, R)>> SmallM2M<A> {
 
         Some(rights)
     }
+
+    /// Returns `true` if the m2m contains the specified left-right pair.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use p_m2m::SmallM2M;
+    ///
+    /// let m2m: SmallM2M<[(u8, &str); 1]> = SmallM2M::from([(1, "a")]);
+    ///
+    /// assert!(m2m.contains(&1, &"a"));
+    /// assert!(!m2m.contains(&1, &"b"));
+    /// ```
+    pub fn contains(&self, left: &L, right: &R) -> bool
+    where
+        L: PartialEq,
+        R: PartialEq,
+    {
+        self.0.iter().any(|(l, r)| l == left && r == right)
+    }
 }
 
 impl<L, R, A: Array<Item = (L, R)>> SmallM2M<A> {

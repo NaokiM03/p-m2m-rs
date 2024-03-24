@@ -1,3 +1,4 @@
+use core::fmt::{self, Debug};
 use core::slice;
 
 use std::vec;
@@ -5,8 +6,16 @@ use std::vec;
 /// A many-to-many implemented as a `Vec<(L, R)>`.
 ///
 /// M2M is just a wrapper around a Vec.
-#[derive(Debug)]
 pub struct M2M<L, R>(Vec<(L, R)>);
+
+impl<L, R> Debug for M2M<L, R>
+where
+    (L, R): Debug,
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> fmt::Result {
+        f.debug_list().entries(self.0.iter()).finish()
+    }
+}
 
 impl<L, R> Default for M2M<L, R> {
     #[inline]

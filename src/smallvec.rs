@@ -1,6 +1,6 @@
-use core::fmt::{Debug, Formatter, Result};
+use core::fmt::{self, Debug};
 use core::iter::FromIterator;
-use core::slice::{Iter, IterMut};
+use core::slice;
 
 use smallvec::{Array, SmallVec};
 
@@ -10,7 +10,7 @@ impl<A: Array> Debug for SmallM2M<A>
 where
     A::Item: Debug,
 {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         f.debug_list().entries(self.0.iter()).finish()
     }
 }
@@ -53,7 +53,7 @@ where
     (L, R): 'a,
 {
     type Item = &'a (L, R);
-    type IntoIter = Iter<'a, (L, R)>;
+    type IntoIter = slice::Iter<'a, (L, R)>;
 
     /// Creates an iterator from a value.
     /// The m2m cannot be used after calling this.
@@ -83,7 +83,7 @@ where
     (L, R): 'a,
 {
     type Item = &'a mut (L, R);
-    type IntoIter = IterMut<'a, (L, R)>;
+    type IntoIter = slice::IterMut<'a, (L, R)>;
 
     /// Creates an iterator from a value.
     /// The m2m cannot be used after calling this.
@@ -157,7 +157,7 @@ impl<L, R, A: Array<Item = (L, R)>> SmallM2M<A> {
     /// assert_eq!(iter.next(), None);
     /// ```
     #[inline]
-    pub fn iter(&self) -> Iter<(L, R)> {
+    pub fn iter(&self) -> slice::Iter<(L, R)> {
         self.0.iter()
     }
 
@@ -181,7 +181,7 @@ impl<L, R, A: Array<Item = (L, R)>> SmallM2M<A> {
     /// assert_eq!(iter.next(), None);
     /// ```
     #[inline]
-    pub fn iter_mut(&mut self) -> IterMut<(L, R)> {
+    pub fn iter_mut(&mut self) -> slice::IterMut<(L, R)> {
         self.0.iter_mut()
     }
 }

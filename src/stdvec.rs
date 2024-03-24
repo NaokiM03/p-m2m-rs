@@ -270,8 +270,8 @@ impl<L, R> M2M<L, R> {
         let mut i = 0;
         while i < self.0.len() {
             if &self.0[i].0 == left {
-                let lr = self.0.remove(i);
-                rights.push(lr.1);
+                let (_, r) = self.0.remove(i);
+                rights.push(r);
             } else {
                 i += 1;
             }

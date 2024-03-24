@@ -272,11 +272,17 @@ impl<L, R, A: Array<Item = (L, R)>> SmallM2M<A> {
     where
         L: PartialEq,
     {
-        let rights: SmallVec<T> = self
-            .0
-            .drain_filter(|(l, _)| l == left)
-            .map(|(_, r)| r)
-            .collect();
+        let mut rights = SmallVec::new();
+
+        let mut i = 0;
+        while i < self.0.len() {
+            if &self.0[i].0 == left {
+                let (_, r) = self.0.remove(i);
+                rights.push(r);
+            } else {
+                i += 1;
+            }
+        }
 
         if rights.is_empty() {
             return None;

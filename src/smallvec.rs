@@ -310,9 +310,7 @@ impl<L, R, A: Array<Item = (L, R)>> SmallM2M<A> {
     {
         self.0.iter().any(|(l, r)| l == left && r == right)
     }
-}
 
-impl<L, R, A: Array<Item = (L, R)>> SmallM2M<A> {
     /// Returns an iterator.
     ///
     /// # Examples
@@ -357,5 +355,23 @@ impl<L, R, A: Array<Item = (L, R)>> SmallM2M<A> {
     #[inline]
     pub fn iter_mut(&mut self) -> slice::IterMut<(L, R)> {
         self.0.iter_mut()
+    }
+
+    /// Extract a slice containing all pairs.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use p_m2m::SmallM2M;
+    ///
+    /// let m2m: SmallM2M<[(u8, &str); 2]> = SmallM2M::from([(1, "a"), (1, "b")]);
+    ///
+    /// let slice = m2m.as_slice();
+    ///
+    /// assert_eq!(slice[0], (1, "a"));
+    /// assert_eq!(slice[1], (1, "b"));
+    /// ```
+    pub fn as_slice(&self) -> &[(L, R)] {
+        self.0.as_slice()
     }
 }

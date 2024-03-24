@@ -144,7 +144,7 @@ impl<L, R> IntoIterator for M2M<L, R> {
 }
 
 impl<L, R> M2M<L, R> {
-    /// Creates an empty M2M
+    /// Creates an empty M2M.
     pub fn new() -> M2M<L, R> {
         Default::default()
     }

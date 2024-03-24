@@ -150,6 +150,13 @@ impl<L, R, A: Array<Item = (L, R)>> IntoIterator for SmallM2M<A> {
 }
 
 impl<L, R, A: Array<Item = (L, R)>> SmallM2M<A> {
+    /// Creates an empty SmallM2M.
+    pub fn new() -> SmallM2M<A> {
+        Default::default()
+    }
+}
+
+impl<L, R, A: Array<Item = (L, R)>> SmallM2M<A> {
     /// Returns an iterator.
     ///
     /// # Examples

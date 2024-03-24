@@ -154,6 +154,52 @@ impl<L, R, A: Array<Item = (L, R)>> SmallM2M<A> {
     pub fn new() -> SmallM2M<A> {
         Default::default()
     }
+
+    /// Inserts a left-right pair into the m2m.
+    ///
+    /// If the m2m did not previously contain this pair, `true` is returned.
+    ///
+    /// If the m2m already contained this pair, `false` is returned.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use p_m2m::SmallM2M;
+    ///
+    /// let mut m2m: SmallM2M<[(u8, &str); 5]> = SmallM2M::new();
+    ///
+    /// assert!(m2m.insert(1, "a"));
+    /// assert!(m2m.insert(1, "b"));
+    /// assert!(m2m.insert(2, "a"));
+    /// assert!(m2m.insert(2, "b"));
+    ///
+    /// assert!(!m2m.insert(1, "a"));
+    ///
+    /// assert!(m2m.insert(1, "c"));
+    ///
+    /// let mut iter = m2m.iter();
+    ///
+    /// assert_eq!(iter.next(), Some(&(1, "a")));
+    /// assert_eq!(iter.next(), Some(&(1, "b")));
+    /// assert_eq!(iter.next(), Some(&(1, "c")));
+    /// assert_eq!(iter.next(), Some(&(2, "a")));
+    /// assert_eq!(iter.next(), Some(&(2, "b")));
+    /// ```
+    pub fn insert(&mut self, left: L, right: R) -> bool
+    where
+        (L, R): Ord,
+    {
+        let value = (left, right);
+
+        if self.0.contains(&value) {
+            return false;
+        }
+
+        self.0.push(value);
+        self.0.sort();
+
+        true
+    }
 }
 
 impl<L, R, A: Array<Item = (L, R)>> SmallM2M<A> {

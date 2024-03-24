@@ -4,6 +4,9 @@ use core::slice;
 
 use smallvec::{Array, SmallVec};
 
+/// A many-to-many implemented as a `SmallVec<A>`.
+///
+/// SmallM2M is just a wrapper around a SmallVec.
 pub struct SmallM2M<A: Array>(SmallVec<A>);
 
 impl<A: Array> Debug for SmallM2M<A>

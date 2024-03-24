@@ -18,6 +18,7 @@ where
 }
 
 impl<L, R> Default for M2M<L, R> {
+    /// Creates an empty `M2M<L, R>`.
     #[inline]
     fn default() -> Self {
         M2M(Vec::new())

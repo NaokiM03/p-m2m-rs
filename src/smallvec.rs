@@ -15,6 +15,14 @@ where
     }
 }
 
+impl<A: Array> Default for SmallM2M<A> {
+    /// Creates an empty `SmallM2M<A>`.
+    #[inline]
+    fn default() -> Self {
+        SmallM2M(SmallVec::new())
+    }
+}
+
 impl<L, R, A: Array<Item = (L, R)>> FromIterator<(L, R)> for SmallM2M<A>
 where
     (L, R): Ord,

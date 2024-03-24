@@ -234,6 +234,23 @@ impl<L, R, A: Array<Item = (L, R)>> SmallM2M<A> {
     pub fn is_empty(&self) -> bool {
         self.0.is_empty()
     }
+
+    /// Clears the m2m, removing all left-right pairs.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use p_m2m::SmallM2M;
+    ///
+    /// let mut m2m: SmallM2M<[(u8, &str); 2]> = SmallM2M::from([(1, "a"), (1, "b")]);
+    ///
+    /// assert!(!m2m.is_empty());
+    /// m2m.clear();
+    /// assert!(m2m.is_empty());
+    /// ```
+    pub fn clear(&mut self) {
+        self.0.clear();
+    }
 }
 
 impl<L, R, A: Array<Item = (L, R)>> SmallM2M<A> {

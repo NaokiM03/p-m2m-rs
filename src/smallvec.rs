@@ -217,6 +217,23 @@ impl<L, R, A: Array<Item = (L, R)>> SmallM2M<A> {
     pub fn len(&self) -> usize {
         self.0.len()
     }
+
+    /// Returns `true` if the m2m contains no pairs.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use p_m2m::SmallM2M;
+    ///
+    /// let mut m2m: SmallM2M<[(u8, &str); 0]> = SmallM2M::new();
+    ///
+    /// assert!(m2m.is_empty());
+    /// m2m.insert(1, "a");
+    /// assert!(!m2m.is_empty());
+    /// ```
+    pub fn is_empty(&self) -> bool {
+        self.0.is_empty()
+    }
 }
 
 impl<L, R, A: Array<Item = (L, R)>> SmallM2M<A> {

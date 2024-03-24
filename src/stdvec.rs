@@ -212,23 +212,6 @@ impl<L, R> M2M<L, R> {
         self.0.len()
     }
 
-    /// Clears the m2m, removing all left-right pairs.
-    ///
-    /// # Examples
-    ///
-    /// ```
-    /// use p_m2m::M2M;
-    ///
-    /// let mut m2m = M2M::from([(1, "a"), (1, "b")]);
-    ///
-    /// assert!(!m2m.is_empty());
-    /// m2m.clear();
-    /// assert!(m2m.is_empty());
-    /// ```
-    pub fn clear(&mut self) {
-        self.0.clear();
-    }
-
     /// Returns `true` if the m2m contains no pairs.
     ///
     /// # Examples
@@ -244,6 +227,23 @@ impl<L, R> M2M<L, R> {
     /// ```
     pub fn is_empty(&self) -> bool {
         self.0.is_empty()
+    }
+
+    /// Clears the m2m, removing all left-right pairs.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use p_m2m::M2M;
+    ///
+    /// let mut m2m = M2M::from([(1, "a"), (1, "b")]);
+    ///
+    /// assert!(!m2m.is_empty());
+    /// m2m.clear();
+    /// assert!(m2m.is_empty());
+    /// ```
+    pub fn clear(&mut self) {
+        self.0.clear();
     }
 
     /// Removes some pairs from the m2m,

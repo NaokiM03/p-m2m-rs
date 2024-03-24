@@ -9,4 +9,5 @@ edition = "2021"
 smallvec = { version = "1.13.1", features = ["drain_filter"], optional = true }
 
 [features]
-default = []
+default = ["std"]
+std = []

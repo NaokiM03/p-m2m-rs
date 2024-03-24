@@ -1,16 +1,12 @@
 [package]
-name = "pseudo-m2m"
+name = "p-m2m"
 version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-pseudo-small-m2m = { path = "pseudo-small-m2m", optional = true }
+smallvec = { version = "1.13.1", features = ["drain_filter"], optional = true }
 
 [features]
 default = []
-smallvec = ["pseudo-small-m2m"]
-
-[workspace]
-members = ["pseudo-small-m2m"]

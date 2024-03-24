@@ -1,8 +1,9 @@
+#[cfg(feature = "smallvec")]
+mod smallvec;
 #[cfg(feature = "default")]
-mod default;
-
-#[cfg(feature = "default")]
-pub use default::M2M;
+mod stdvec;
 
 #[cfg(feature = "smallvec")]
-pub use pseudo_small_m2m::SmallM2M;
+pub use smallvec::SmallM2M;
+#[cfg(feature = "default")]
+pub use stdvec::M2M;

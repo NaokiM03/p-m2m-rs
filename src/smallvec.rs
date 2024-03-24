@@ -2,7 +2,7 @@ use core::fmt::{Debug, Formatter, Result};
 use core::iter::FromIterator;
 use core::slice::{Iter, IterMut};
 
-use smallvec::{Array, IntoIter, SmallVec};
+use smallvec::{Array, SmallVec};
 
 pub struct SmallM2M<A: Array>(SmallVec<A>);
 
@@ -39,7 +39,7 @@ where
     /// # Examples
     ///
     /// ```
-    /// use pseudo_small_m2m::SmallM2M;
+    /// use p_m2m::SmallM2M;
     ///
     /// let m2m: SmallM2M<[(u8, &str); 4]> = SmallM2M::from([(1, "a"), (1, "b"), (2, "a"), (2, "b")]);
     /// ```
@@ -61,7 +61,7 @@ where
     /// # Examples
     ///
     /// ```
-    /// use pseudo_small_m2m::SmallM2M;
+    /// use p_m2m::SmallM2M;
     ///
     /// let m2m: SmallM2M<[(u8, &str); 4]> = SmallM2M::from([(1, "a"), (1, "b"), (2, "a"), (2, "b")]);
     ///
@@ -91,7 +91,7 @@ where
     /// # Examples
     ///
     /// ```
-    /// use pseudo_small_m2m::SmallM2M;
+    /// use p_m2m::SmallM2M;
     ///
     /// let m2m: &mut SmallM2M<[(u8, &str); 4]> =
     ///     &mut SmallM2M::from([(1, "a"), (1, "b"), (2, "a"), (2, "b")]);
@@ -113,7 +113,7 @@ where
 
 impl<L, R, A: Array<Item = (L, R)>> IntoIterator for SmallM2M<A> {
     type Item = (L, R);
-    type IntoIter = IntoIter<A>;
+    type IntoIter = smallvec::IntoIter<A>;
 
     /// Creates an iterator from a value.
     /// The m2m cannot be used after calling this.
@@ -121,7 +121,7 @@ impl<L, R, A: Array<Item = (L, R)>> IntoIterator for SmallM2M<A> {
     /// # Examples
     ///
     /// ```
-    /// use pseudo_small_m2m::SmallM2M;
+    /// use p_m2m::SmallM2M;
     ///
     /// let m2m: SmallM2M<[(u8, &str); 4]> = SmallM2M::from([(1, "a"), (1, "b"), (2, "a"), (2, "b")]);
     ///
@@ -144,7 +144,7 @@ impl<L, R, A: Array<Item = (L, R)>> SmallM2M<A> {
     /// # Examples
     ///
     /// ```
-    /// use pseudo_small_m2m::SmallM2M;
+    /// use p_m2m::SmallM2M;
     ///
     /// let m2m: SmallM2M<[(u8, &str); 4]> = SmallM2M::from([(1, "a"), (1, "b"), (2, "a"), (2, "b")]);
     ///
@@ -166,7 +166,7 @@ impl<L, R, A: Array<Item = (L, R)>> SmallM2M<A> {
     /// # Examples
     ///
     /// ```
-    /// use pseudo_small_m2m::SmallM2M;
+    /// use p_m2m::SmallM2M;
     ///
     /// let mut m2m: SmallM2M<[(u8, &str); 4]> = SmallM2M::from([(1, "a"), (1, "b"), (2, "a"), (2, "b")]);
     ///

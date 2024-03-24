@@ -1,5 +1,5 @@
 use core::fmt::{self, Debug};
-use core::iter::FromIterator;
+use core::iter::{FromIterator, IntoIterator};
 use core::slice;
 
 use smallvec::{Array, SmallVec};

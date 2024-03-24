@@ -1,4 +1,5 @@
 use core::fmt::{self, Debug};
+use core::iter::{FromIterator, IntoIterator};
 use core::slice;
 
 use std::vec;

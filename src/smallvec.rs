@@ -251,6 +251,39 @@ impl<L, R, A: Array<Item = (L, R)>> SmallM2M<A> {
     pub fn clear(&mut self) {
         self.0.clear();
     }
+
+    /// Removes some pairs from the m2m,
+    /// returning the right values corresponding to the left if the left was previously in the m2m.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use p_m2m::SmallM2M;
+    /// use smallvec::smallvec;
+    ///
+    /// let mut m2m: SmallM2M<[(u8, &str); 1]> = SmallM2M::from([(1, "a"), (1, "b")]);
+    ///
+    /// assert_eq!(m2m.remove::<[&str; 2]>(&1), Some(smallvec!["a", "b"]));
+    /// assert_eq!(m2m.remove::<[&str; 0]>(&1), None);
+    ///
+    /// assert!(m2m.is_empty());
+    /// ```
+    pub fn remove<T: Array<Item = R>>(&mut self, left: &L) -> Option<SmallVec<T>>
+    where
+        L: PartialEq,
+    {
+        let rights: SmallVec<T> = self
+            .0
+            .drain_filter(|(l, _)| l == left)
+            .map(|(_, r)| r)
+            .collect();
+
+        if rights.is_empty() {
+            return None;
+        }
+
+        Some(rights)
+    }
 }
 
 impl<L, R, A: Array<Item = (L, R)>> SmallM2M<A> {

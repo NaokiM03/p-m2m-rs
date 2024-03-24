@@ -254,9 +254,9 @@ impl<L, R> M2M<L, R> {
     /// ```
     /// use p_m2m::M2M;
     ///
-    /// let mut m2m = M2M::from([(1, "a")]);
+    /// let mut m2m = M2M::from([(1, "a"), (1, "b")]);
     ///
-    /// assert_eq!(m2m.remove(&1), Some(vec!["a"]));
+    /// assert_eq!(m2m.remove(&1), Some(vec!["a", "b"]));
     /// assert_eq!(m2m.remove(&1), None);
     ///
     /// assert!(m2m.is_empty());

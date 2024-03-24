@@ -393,4 +393,28 @@ impl<L, R, A: Array<Item = (L, R)>> SmallM2M<A> {
     pub fn as_mut_slice(&mut self) -> &mut [(L, R)] {
         self.0.as_mut_slice()
     }
+
+    /// Retains only the pairs specified by the predicate.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use p_m2m::SmallM2M;
+    ///
+    /// let mut m2m: SmallM2M<[(u8, &str); 4]> = SmallM2M::from([(1, "a"), (1, "b"), (2, "a"), (2, "b")]);
+    ///
+    /// m2m.retain(|(l, _)| l % 2 == 0);
+    ///
+    /// let mut iter = m2m.iter();
+    ///
+    /// assert_eq!(iter.next(), Some(&(2, "a")));
+    /// assert_eq!(iter.next(), Some(&(2, "b")));
+    /// assert_eq!(iter.next(), None);
+    /// ```
+    pub fn retain<F>(&mut self, mut f: F)
+    where
+        F: FnMut(&(L, R)) -> bool,
+    {
+        self.0.retain_mut(|pair| f(pair));
+    }
 }
